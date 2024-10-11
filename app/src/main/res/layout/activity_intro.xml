@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:padding="18dp"
+    android:background="@color/white"
+    android:layout_gravity="center"
+    android:layout_height="match_parent"
+    tools:context=".Activities.IntroActivity">
+
+    <TextView
+        android:layout_marginTop="@dimen/intro_activity_margin_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/Headline_for_intro_text_size"/>
+
+    <ImageView
+        android:layout_marginTop="@dimen/intro_activity_margin_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/project_management"/>
+
+    <TextView
+        android:layout_marginTop="@dimen/intro_activity_margin_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/intro_headline2"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="@dimen/headline2_intro_text_size"/>
+
+    <TextView
+        android:layout_marginTop="@dimen/intro_activity_text1_margintop"
+        android:layout_width="wrap_content"
+       android:layout_margin="@dimen/intro_activity_text1_margintop"
+        android:layout_height="wrap_content"
+        android:text="@string/intro_text1"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="@dimen/intro_page_text1_size"
+        android:textColor="@color/black" />
+
+    <Button
+        android:id="@+id/btn_sign_in_intro"
+        android:layout_width="match_parent"
+        android:layout_margin="@dimen/intro_btn_margin"
+        android:text="@string/sign_in_btn"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:background="@drawable/shape_button_rounded"/>
+
+    <Button
+        android:id="@+id/btn_sign_up_intro"
+        android:layout_width="match_parent"
+        android:layout_margin="@dimen/intro_btn_margin"
+        android:text="@string/sign_up_btn"
+        android:textColor="@color/colorPrimary"
+        android:layout_height="wrap_content"
+        android:background="@drawable/white_border_shape_button_background"/>
+
+</LinearLayout>

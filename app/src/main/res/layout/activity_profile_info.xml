@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    tools:context=".Activities.profileInfoActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_profile_activity"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        app:popupTheme="@style/AppTheme.popupOverlay"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="40dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_user_image"
+            android:layout_width="@dimen/profile_head_circle_image"
+            android:layout_height="@dimen/profile_head_circle_image"
+            android:layout_marginStart="@dimen/profile_margin_StartEnd"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/profile_margin_StartEnd"
+            app:civ_border_color="@android:color/black"
+            app:civ_border_width="@dimen/nav_image_circular_border_width"
+            android:contentDescription="@string/image_content_description"
+            android:src="@drawable/profile"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/name_profile_et"
+            android:layout_marginTop="@dimen/profile_et_margin_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/name_signup"
+            android:textColor="@color/black"
+            android:textColorHint="@color/lightGrey"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/email_profile_et"
+            android:layout_marginTop="@dimen/profile_et_margin_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/email_signup"
+            android:clickable="false"
+            android:focusableInTouchMode="false"
+            android:textColor="@color/black"
+            android:textColorHint="@color/lightGrey"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/mobile_profile_et"
+            android:layout_marginTop="@dimen/profile_et_margin_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/mobile_number"
+            android:textColor="@color/black"
+            android:textColorHint="@color/lightGrey"/>
+
+        <Button
+            android:id="@+id/update_btn_profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:foreground="?attr/selectableItemBackground"
+            android:layout_marginTop="@dimen/profile_et_margin_top"
+            android:background="@drawable/shape_button_rounded"
+            android:text="@string/update"/>
+
+    </LinearLayout>
+
+</LinearLayout>

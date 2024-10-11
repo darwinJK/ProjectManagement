@@ -1,0 +1,51 @@
+<resources>
+    <string name="app_name">ProjecManage</string>
+    <string name="click_back_application_exit">Please Click back again to exit</string>
+    <string name="please_wait">Please wait</string>
+
+    <string name="intro_headline2">Let\'s Get Started</string>
+    <string name="intro_text1">Collaborate and Plan Together Across Multiple Devices on ProjecManage\'s Minimalist Interface</string>
+    <string name="sign_in_btn">SIGN IN</string>
+    <string name="sign_up_btn">SIGN UP</string>
+    <string name="login_btn">LOG IN</string>
+
+
+    <string name="signup_txt">Enter your name, email and password to register with us.</string>
+    <string name="name_signup">Name</string>
+    <string name="email_signup">Email</string>
+    <string name="password_signup">Password</string>
+    <string name="signIn_txt">Enter your email and password to login</string>
+
+    <string name="nav_my_profile">My Profile</string>
+    <string name="nav_signOut">Sign out</string>
+    <string name="image_content_description">Image content description</string>
+    <string name="mobile_number">mobile number</string>
+    <string name="update">Update</string>
+
+    <string name="my_profile_title">My Profile</string>
+    <string name="name_board">Name</string>
+    <string name="Create">create</string>
+    <string name="create_board">Create Board</string>
+    <string name="no_boards_available">No board records available!! create one</string>
+
+    <string name="action_add_list">Add List</string>
+    <string name="hint_list_name">List Name</string>
+    <string name="action_add_card">Add Card</string>
+    <string name="hint_card_name">Card Name</string>
+    <string name="add_list">Add List</string>
+    <string name="add_member">Add Member</string>
+    <string name="card_name">card name</string>
+    <string name="select_color">Select color</string>
+    <string name="label_color">Label Color</string>
+    <string name="select_the_olor">Select the color</string>
+    <string name="members">selected members</string>
+    <string name="select_members">select members</string>
+    <string name="due_date">Due Date</string>
+    <string name="select_due_date">select due date</string>
+    <string name="update_card_details">Update</string>
+
+    <string name="delete_card">Delete Card</string>
+
+    <string name="default_notification_channel_id">projecManage_notification_channel_id</string>
+    <string name="credentialPath">C:\Users\Asus\1. private key for fcm\projecmanage-ffe79-firebase-adminsdk-v5fki-64b50534ca.json</string>
+</resources>
