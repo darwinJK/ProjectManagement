@@ -37,10 +37,6 @@ android {
     buildFeatures{
         viewBinding=true
     }
-  /*  packagingOptions{
-        exclude("META-INF/INDEX.LIST")
-        exclude("META-INF/DEPENDENCIES")
-    }*/
 }
 
 dependencies {
@@ -67,19 +63,12 @@ dependencies {
 
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
-   // implementation("com.google.auth:google-auth-library-oauth2-http:1.28.0")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
 
 
     implementation("de.hdodenhof:circleimageview:3.1.0")
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("com.karumi:dexter:6.2.3")
 
-    /*  implementation("io.grpc:grpc-okhttp:1.62.2")
-      implementation("io.grpc:grpc-protobuf-lite:1.62.2")
-      implementation("io.grpc:grpc-stub:1.62.2")
-
-          implementation("com.google.firebase:firebase-firestore:25.1.0") {
-          exclude(group = "io.grpc", module = "grpc-okhttp")
-      }*/
 
 }

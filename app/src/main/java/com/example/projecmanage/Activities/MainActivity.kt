@@ -3,9 +3,7 @@ package com.example.projecmanage.Activities
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.os.Build
 import android.os.Bundle
-import android.os.StrictMode
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
@@ -18,30 +16,15 @@ import com.bumptech.glide.Glide
 import com.example.projecmanage.Adapters.BoardItemsAdapter
 import com.example.projecmanage.FireBase.FireStoreClass
 import com.example.projecmanage.Models.Board
-import com.example.projecmanage.Models.Notification
-import com.example.projecmanage.Models.NotificationData
 import com.example.projecmanage.Models.User
 import com.example.projecmanage.R
 import com.example.projecmanage.Utils.Constants
 //import com.example.projecmanage.apis.NotificationApi
 import com.example.projecmanage.databinding.ActivityMainBinding
 import com.example.projecmanage.databinding.NavHeaderMainBinding
-import com.example.projecmanage.fcm.MyFirebaseMessagingService
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.iid.FirebaseInstanceIdReceiver
-import com.google.firebase.iid.internal.FirebaseInstanceIdInternal
 import com.google.firebase.messaging.FirebaseMessaging
-import com.karumi.dexter.Dexter
-import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionDeniedResponse
-import com.karumi.dexter.listener.PermissionGrantedResponse
-import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.single.PermissionListener
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.io.FileInputStream
 
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -74,14 +57,11 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             FirebaseMessaging.getInstance().token.addOnSuccessListener(this@MainActivity){
                 token->
                 updateFcmToken(token)
+
             }
         }
 
         FireStoreClass().LoadUserData(this,true)
-
-        MyFirebaseMessagingService(this)
-
-      //  permissionForNotification()
 
         binding?.includeAppMain?.fabCreateBoard?.setOnClickListener {
             val intent = Intent(this,BoardActivity::class.java)
@@ -213,60 +193,4 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         progressDialog("please wait")
         FireStoreClass().updateUserProfileData(this,userHashMap)
     }
-    private fun permissionForNotification(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
-            Dexter.withContext(this)
-                .withPermission(android.Manifest.permission.POST_NOTIFICATIONS)
-                .withListener(object : PermissionListener{
-                    override fun onPermissionGranted(p0: PermissionGrantedResponse?) {
-                        TODO("Not yet implemented")
-                    }
-
-                    override fun onPermissionDenied(p0: PermissionDeniedResponse?) {
-                        TODO("Not yet implemented")
-                    }
-
-                    override fun onPermissionRationaleShouldBeShown(
-                        p0: PermissionRequest?,
-                        Token: PermissionToken?
-                    ) {
-                       Token?.continuePermissionRequest()
-                    }
-
-                }).check()
-        }
-
-        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
-        StrictMode.setThreadPolicy(policy)
-
-        FirebaseMessaging.getInstance().subscribeToTopic("Test")
-
-        sendNotification()
-    }
-    private fun sendNotification(){
-        val notification = Notification(
-            message = NotificationData(
-                topic ="test",
-                hashMapOf("title" to "You have loggedIn",
-                "body" to "You have successfully signedIn to ProjecManage.")
-            )
-        )
-        /*NotificationApi.sendNotification().notification(notification).enqueue(
-            object : Callback<Notification>{
-                override fun onResponse(p0: Call<Notification>, p1: Response<Notification>) {
-                    Toast.makeText(this@MainActivity,"notification successfull",Toast.LENGTH_SHORT).show()
-                }
-
-                override fun onFailure(p0: Call<Notification>, t: Throwable) {
-                    Toast.makeText(this@MainActivity,"notification failed ${t.message}",Toast.LENGTH_SHORT).show()
-
-                }
-
-            }
-
-        )
-
-         */
-    }
-
 }

@@ -19,90 +19,67 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.getSystemService
 import com.example.projecmanage.Activities.MainActivity
 import com.example.projecmanage.R
+import com.google.firebase.messaging.Constants.TAG
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import java.nio.channels.Channel
 import java.util.Random
 
-class MyFirebaseMessagingService(private val applicationContext : Context) : FirebaseMessagingService(){
+class MyFirebaseMessagingService : FirebaseMessagingService(){
 
-    private val channelId = "projecManage_notification_channel_id"
-    private val channelName = "Channel projemanag title"
-    val intent = Intent(applicationContext,MainActivity::class.java)
-    val pendingIntent = PendingIntent.getActivity(applicationContext,
-        0,intent, PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE)
+    override fun onNewToken(token: String) {
+        super.onNewToken(token)
+        Log.d(TAG, "FCM: Refreshed token: $token")
 
-
-    private val notificationManager : NotificationManager by lazy {
-        getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     }
 
+    override fun onMessageReceived(remoteMessage: RemoteMessage) {
+        super.onMessageReceived(remoteMessage)
+        Log.d(TAG, "FCM: From: ${remoteMessage.from}")
 
-    override fun onMessageReceived(message: RemoteMessage) {
-        super.onMessageReceived(message)
 
-
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
-            createNotificationChannel()
+        remoteMessage.getData().isNotEmpty().let {
+            Log.d(TAG, "FCM: Message data payload: " + remoteMessage.getData())
+            val title = remoteMessage.notification?.title.toString()
+            val message = remoteMessage.notification?.title.toString()
+            sendNotification(title,message)
         }
+
+        remoteMessage.notification?.let {
+            Log.d(TAG, "FCM: Message Notification Body: ${it.body}")
+        }
+    }
+    private fun sendNotification(title: String, body: String) {
+        val intent = Intent(this, MainActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        val pendingIntent = PendingIntent.getActivity(
+            this,
+            0,
+            intent,
+            PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val notificationChannelStr = "CHANNEL"
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-        val notificationBuilder = NotificationCompat.Builder(
-            applicationContext,channelId)
+        val notificationBuilder = NotificationCompat.Builder(this, notificationChannelStr)
             .setSmallIcon(R.drawable.ic_stat_ic_notification)
-            .setContentTitle(message.data["title"])
-            .setContentText(message.data["body"])
+            .setContentTitle(title)
+            .setContentText(body)
             .setAutoCancel(true)
             .setSound(defaultSoundUri)
             .setContentIntent(pendingIntent)
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
-            with(NotificationManagerCompat.from(applicationContext)){
-                if(ActivityCompat.checkSelfPermission(
-                        applicationContext,
-                        Manifest.permission.POST_NOTIFICATIONS)!= PackageManager.PERMISSION_GRANTED){
-                    return
-                }
-                notify(Random().nextInt(3000),notificationBuilder.build())
-            }
-        } else{
-            NotificationManagerCompat.from(applicationContext).notify(Random().nextInt(3000),notificationBuilder.build())
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                notificationChannelStr,"projecManage",
+                NotificationManager.IMPORTANCE_DEFAULT)
+            notificationManager.createNotificationChannel(channel)
         }
 
-      /*  Log.d("test","from : ${message.from}")
-        message.data.isNotEmpty().let {
-            Log.d("test","Message data payloads : ${message.data}")
-        }
-        val notification = message.notification?.let {
-            Log.d("test","Message Notification Body : ${it.body}")
-            val title = it.title
-            val message = it.body
-        }*/
+        val notificationId = System.currentTimeMillis().toInt()
+        notificationManager.notify(notificationId, notificationBuilder.build())
     }
-
-    override fun onNewToken(token: String) {
-        super.onNewToken(token)
-        Log.e("test","refreshed token : $token")
-        sendRegistration(token)
-    }
-
-    private fun sendRegistration(token:String?){
-        //ToDO implemengtation
-    }
-
- /*    fun sendNotification(context : Context,title:String,messageBody:String){
-        val intent = Intent(context,MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        val pendingIntent = PendingIntent.getActivity(context,
-            0,intent, PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE)
-        */
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun createNotificationChannel(){
-        val channel = NotificationChannel(
-            channelId,
-            channelName,
-            NotificationManager.IMPORTANCE_HIGH
-        )
-     notificationManager.createNotificationChannel(channel)
- }
 
 }
